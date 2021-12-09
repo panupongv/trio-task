@@ -3,6 +3,9 @@
 #Create Network
 docker network create trio-task-network
 
+#Create Volume
+docker volume create trio-db-volume 
+
 #Build images
 docker build -t trio-db db
 docker build -t trio-flask-app flask-app
@@ -10,6 +13,7 @@ docker build -t trio-flask-app flask-app
 #Run database Container
 docker run -d \
     --network trio-task-network \
+    --volume trio-db-volume:/var/lib/mysql \
     --name mysql \
     trio-db
 
